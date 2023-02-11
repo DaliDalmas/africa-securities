@@ -90,6 +90,7 @@ pluggy==1.0.0
 prison==0.2.1
 protobuf==3.20.3
 psutil==5.9.4
+psycopg2-binary==2.9.5
 pyarrow==11.0.0
 pycparser==2.21
 pydeck==0.8.0
