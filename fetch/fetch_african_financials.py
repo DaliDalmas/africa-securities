@@ -43,13 +43,3 @@ def fetch_zimbabwe1():
 def fetch_zimbabwe():
     crawler = AfricanFinancialCrawler('https://africanfinancials.com/zimbabwe-stock-exchange-share-prices/', 30, 'zimbabwe', 'zimbabwe_stock_exchange')
     crawler.run_crawler()
-
-fetch_uganda()
-fetch_botswana()
-fetch_tanzania()
-fetch_ghana()
-fetch_zambia()
-fetch_malawi()
-fetch_mauritius()
-fetch_zimbabwe1()
-fetch_zimbabwe()

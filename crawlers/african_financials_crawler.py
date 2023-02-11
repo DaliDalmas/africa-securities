@@ -25,7 +25,7 @@ class AfricanFinancialCrawler:
     def run_crawler(self):
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.get(self.website)
-        time.sleep(30)
+        time.sleep(self.sleep_time)
         
         securities_table = driver.find_element(By.XPATH, '//table[@id="af21_prices"]')
         table_heads = securities_table.find_element(By.TAG_NAME, 'thead')
