@@ -141,3 +141,5 @@ logs/*
 */logs
 *.log
 *.py.log
+
+*/airflow.cfg
