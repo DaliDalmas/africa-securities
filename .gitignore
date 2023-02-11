@@ -132,3 +132,12 @@ temp/*
 
 *.db
 *.cfg
+*/logs*
+logs
+logs/
+logs*
+logs/*
+*logs
+*/logs
+*.log
+*.py.log
