@@ -143,3 +143,4 @@ logs/*
 *.py.log
 
 */airflow.cfg
+*.pid
