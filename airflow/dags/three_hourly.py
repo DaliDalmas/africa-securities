@@ -5,10 +5,11 @@ from fetch import fetch_african_financials as faf
 
 dag = DAG(
     dag_id='run_three_hourly',
+    catchup=False,
     description='This dag runs every three hours.',
     schedule='0 */3 * * *',
     default_args={"retries": 2},
-    start_date=datetime(2023, 2, 11),
+    start_date=datetime(2023, 2, 27),
 )
 
 run_use = PythonOperator(
