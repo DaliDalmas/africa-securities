@@ -35,7 +35,8 @@ class Load:
                          engine,
                          if_exists='append',
                          schema=self.database_schema,
-                         dtype=self.data_types)
+                         dtype=self.data_types,
+                         index=False)
 
 
 if __name__=='__main__':
