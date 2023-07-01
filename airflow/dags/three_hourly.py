@@ -4,12 +4,12 @@ from airflow.operators.python import PythonOperator
 from fetch import fetch_african_financials as faf
 
 dag = DAG(
-    dag_id='run_three_hourly',
+    dag_id='run_three_hourly_dag',
     catchup=False,
     description='This dag runs every three hours.',
     schedule='0 */3 * * *',
     default_args={"retries": 2},
-    start_date=datetime(2023, 2, 27),
+    start_date=datetime(2023, 6, 30),
 )
 
 run_use = PythonOperator(
