@@ -2,6 +2,7 @@ from airflow import DAG
 from datetime import datetime
 from airflow.operators.python import PythonOperator
 from fetch import fetch_african_financials as faf
+from load import load_african_financials as laf
 
 dag = DAG(
     dag_id='run_three_hourly_dag',
@@ -77,3 +78,25 @@ run_zimbabwe_stock_exchange = PythonOperator(
     dag=dag,
     python_callable=faf.fetch_zimbabwe
 )
+
+run_load_african_financials = PythonOperator(
+    task_id = 'run_load_african_financials',
+    dag=dag,
+    python_callable=laf.Load('temp').load_tables
+)
+
+run_load_african_financials.set_upstream(
+    [
+        run_zimbabwe_stock_exchange,
+        run_victorua_falls_stock_exchange,
+        run_stock_exchange_of_mauritius,
+        run_nigerian_stock_exchange,
+        run_nairobi_securities_exchange,
+        run_malawi_stock_exchange,
+        run_lusaka_securities_exchange,
+        run_ghana_stock_exchange,
+        run_dar_es_salaam_stock_exchage,
+        run_botswana_stock_exchange,
+        run_use
+        ]
+        )
