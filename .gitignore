@@ -144,3 +144,4 @@ logs/*
 
 */airflow.cfg
 *.pid
+*/webserver_config.py
