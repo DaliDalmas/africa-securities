@@ -10,7 +10,7 @@ dag = DAG(
     description='This dag runs every three hours.',
     schedule='0 */3 * * *',
     default_args={"retries": 2},
-    start_date=datetime(2023, 6, 30),
+    start_date=datetime(2023, 7, 5),
 )
 
 run_use = PythonOperator(
@@ -79,24 +79,24 @@ run_zimbabwe_stock_exchange = PythonOperator(
     python_callable=faf.fetch_zimbabwe
 )
 
-run_load_african_financials = PythonOperator(
-    task_id = 'run_load_african_financials',
-    dag=dag,
-    python_callable=laf.Load('temp').load_tables
-)
+# run_load_african_financials = PythonOperator(
+#     task_id = 'run_load_african_financials',
+#     dag=dag,
+#     python_callable=laf.LoadAfricanFinancials('temp').load_tables
+# )
 
-run_load_african_financials.set_upstream(
-    [
-        run_zimbabwe_stock_exchange,
-        run_victorua_falls_stock_exchange,
-        run_stock_exchange_of_mauritius,
-        run_nigerian_stock_exchange,
-        run_nairobi_securities_exchange,
-        run_malawi_stock_exchange,
-        run_lusaka_securities_exchange,
-        run_ghana_stock_exchange,
-        run_dar_es_salaam_stock_exchage,
-        run_botswana_stock_exchange,
-        run_use
-        ]
-        )
+# run_load_african_financials.set_upstream(
+#     [
+#         run_zimbabwe_stock_exchange,
+#         run_victorua_falls_stock_exchange,
+#         run_stock_exchange_of_mauritius,
+#         run_nigerian_stock_exchange,
+#         run_nairobi_securities_exchange,
+#         run_malawi_stock_exchange,
+#         run_lusaka_securities_exchange,
+#         run_ghana_stock_exchange,
+#         run_dar_es_salaam_stock_exchage,
+#         run_botswana_stock_exchange,
+#         run_use
+#         ]
+#         )
