@@ -3,6 +3,7 @@ from datetime import datetime
 from airflow.operators.python import PythonOperator
 from fetch import fetch_african_financials as faf
 from load import load_african_financials as laf
+from clean_up import clean_african_financials as caf
 
 dag = DAG(
     dag_id='run_three_hourly_dag',
@@ -85,6 +86,12 @@ run_load_african_financials = PythonOperator(
     python_callable=laf.LoadAfricanFinancials('/opt/airflow/temp').load_tables
 )
 
+run_clean_african_financials = PythonOperator(
+    task_id = 'run_clean_african_financials',
+    dag=dag,
+    python_callable=caf.CleanAfricanFinancials('/opt/airflow/temp').delete_tables
+)
+
 run_load_african_financials.set_upstream(
     [
         run_zimbabwe_stock_exchange,
@@ -100,3 +107,5 @@ run_load_african_financials.set_upstream(
         run_use
         ]
         )
+
+run_clean_african_financials.set_upstream(run_load_african_financials)
