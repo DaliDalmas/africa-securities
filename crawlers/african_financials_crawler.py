@@ -56,6 +56,6 @@ class AfricanFinancialCrawler:
         outdir = './temp'
         if not os.path.exists(outdir):
             os.mkdir(outdir)
-        securities_df.to_csv(f'temp/{self.exchange}.csv', index=False)
+        securities_df.to_csv(f'temp/{self.exchange}_{datetime.now()}.csv', index=False)
 
         driver.quit()
