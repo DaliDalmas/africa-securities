@@ -82,7 +82,7 @@ run_zimbabwe_stock_exchange = PythonOperator(
 run_load_african_financials = PythonOperator(
     task_id = 'run_load_african_financials',
     dag=dag,
-    python_callable=laf.LoadAfricanFinancials('temp').load_tables
+    python_callable=laf.LoadAfricanFinancials('/opt/airflow/temp').load_tables
 )
 
 run_load_african_financials.set_upstream(

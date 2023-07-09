@@ -31,5 +31,5 @@ class LoadAfricanFinancials:
             data.load()
 
 if __name__=='__main__':
-    instance = LoadAfricanFinancials('temp')
+    instance = LoadAfricanFinancials('/opt/airflow/temp')
     instance.load_tables()

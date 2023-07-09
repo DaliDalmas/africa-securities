@@ -27,6 +27,7 @@ class Load:
     
     def load(self) -> None:
         db_link = f'postgresql://{self.db_user}:{self.db_user_pass}@{self.db_host}:{self.db_port}/{self.db}'
+        print(db_link)
         engine = create_engine(db_link)
         for col in  self.floating_columns:
             self.data[col] = self.data[col].apply(lambda val: str(val).replace(',', '') if val else np.nan)

@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 from datetime import datetime
 import pandas as pd
+import os
 
 
 
@@ -24,7 +25,10 @@ class AfricanFinancialCrawler:
         user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
         options.add_argument(f'user-agent={user_agent}')
         options.add_experimental_option("detach", True)
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')   
+        remote_webdriver = 'remote_chromedriver'
+        driver = webdriver.Remote(command_executor=f'{remote_webdriver}:4444/wd/hub', options=options)
         driver.get(self.website)
         time.sleep(self.sleep_time)
         
@@ -49,6 +53,9 @@ class AfricanFinancialCrawler:
         securities_df['country'] = self.country
         securities_df['exchange'] = self.exchange
         securities_df['fetched_at_utc'] = datetime.utcnow()
+        outdir = './temp'
+        if not os.path.exists(outdir):
+            os.mkdir(outdir)
         securities_df.to_csv(f'temp/{self.exchange}.csv', index=False)
 
         driver.quit()
