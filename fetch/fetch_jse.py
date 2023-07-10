@@ -30,7 +30,7 @@ class FetchJSE:
         remote_webdriver = 'remote_chromedriver'
 
         # if bool(os.getenv('IN_PRODUCTION')):
-        if False:
+        if True:
             driver = webdriver.Remote(command_executor=f'{remote_webdriver}:4444/wd/hub', options=options)
         else:
             driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
