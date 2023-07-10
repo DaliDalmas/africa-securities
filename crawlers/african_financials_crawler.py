@@ -8,7 +8,8 @@ import time
 from datetime import datetime
 import pandas as pd
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class AfricanFinancialCrawler:
@@ -29,6 +30,10 @@ class AfricanFinancialCrawler:
         options.add_argument('--disable-dev-shm-usage')   
         remote_webdriver = 'remote_chromedriver'
         driver = webdriver.Remote(command_executor=f'{remote_webdriver}:4444/wd/hub', options=options)
+        if bool(os.getenv('IN_PRODUCTION')):
+            driver = webdriver.Remote(command_executor=f'{remote_webdriver}:4444/wd/hub', options=options)
+        else:
+            driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.get(self.website)
         time.sleep(self.sleep_time)
         
@@ -53,9 +58,9 @@ class AfricanFinancialCrawler:
         securities_df['country'] = self.country
         securities_df['exchange'] = self.exchange
         securities_df['fetched_at_utc'] = datetime.utcnow()
-        outdir = './temp'
+        outdir = './temp/af'
         if not os.path.exists(outdir):
             os.mkdir(outdir)
-        securities_df.to_csv(f'temp/{self.exchange}_{datetime.now()}.csv', index=False)
+        securities_df.to_csv(f'temp/af/{self.exchange}_{datetime.now()}.csv', index=False)
 
         driver.quit()

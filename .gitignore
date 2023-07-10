@@ -141,7 +141,7 @@ logs/*
 */logs
 *.log
 *.py.log
-
+*.csv
 */airflow.cfg
 *.pid
 */webserver_config.py
