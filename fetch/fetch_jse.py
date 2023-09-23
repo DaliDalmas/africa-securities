@@ -62,6 +62,7 @@ class FetchJSE:
         df['fetched_at_utc'] = datetime.utcnow()
         outdir = './temp/jse'
         if not os.path.exists(outdir):
+            os.mkdir('./temp')
             os.mkdir(outdir)
         df.to_csv(f'temp/jse/jse_{datetime.now()}.csv', index=False)
 

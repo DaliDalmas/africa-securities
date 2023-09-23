@@ -30,7 +30,8 @@ class AfricanFinancialCrawler:
         options.add_argument('--disable-dev-shm-usage')   
         remote_webdriver = 'remote_chromedriver'
         driver = webdriver.Remote(command_executor=f'{remote_webdriver}:4444/wd/hub', options=options)
-        if bool(os.getenv('IN_PRODUCTION')):
+        # if bool(os.getenv('IN_PRODUCTION')):
+        if True:
             driver = webdriver.Remote(command_executor=f'{remote_webdriver}:4444/wd/hub', options=options)
         else:
             driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
@@ -60,6 +61,7 @@ class AfricanFinancialCrawler:
         securities_df['fetched_at_utc'] = datetime.utcnow()
         outdir = './temp/af'
         if not os.path.exists(outdir):
+            os.mkdir('./temp')
             os.mkdir(outdir)
         securities_df.to_csv(f'temp/af/{self.exchange}_{datetime.now()}.csv', index=False)
 
