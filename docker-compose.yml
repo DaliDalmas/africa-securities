@@ -15,3 +15,4 @@ services:
         volumes:
          - ./dev/shm:/dev/shm
         shm_size: '6gb'
+        privileged: true
