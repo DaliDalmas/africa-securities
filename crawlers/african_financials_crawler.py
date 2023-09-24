@@ -9,7 +9,9 @@ from datetime import datetime
 import pandas as pd
 import os
 from dotenv import load_dotenv
-load_dotenv()
+from pathlib import Path
+dotenv_path = Path('.env')
+load_dotenv(dotenv_path=dotenv_path)
 
 
 class AfricanFinancialCrawler:
@@ -27,12 +29,12 @@ class AfricanFinancialCrawler:
         options.add_argument(f'user-agent={user_agent}')
         options.add_experimental_option("detach", True)
         options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')   
-        remote_webdriver = 'remote_chromedriver'
-        driver = webdriver.Remote(command_executor=f'{remote_webdriver}:4444/wd/hub', options=options)
+        options.add_argument('--disable-dev-shm-usage')
+        remote_webdriver = os.getenv('REMOTE_CHROME')
+        driver = webdriver.Remote(command_executor=f'localhost:4444/wd/hub', options=options)
         # if bool(os.getenv('IN_PRODUCTION')):
         if True:
-            driver = webdriver.Remote(command_executor=f'{remote_webdriver}:4444/wd/hub', options=options)
+            driver = webdriver.Remote(command_executor=f'localhost:4444/wd/hub', options=options)
         else:
             driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.get(self.website)
