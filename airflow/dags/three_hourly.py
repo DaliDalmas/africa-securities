@@ -85,13 +85,13 @@ run_zimbabwe_stock_exchange = PythonOperator(
 run_load_african_financials = PythonOperator(
     task_id = 'run_load_african_financials',
     dag=dag,
-    python_callable=laf.LoadAfricanFinancials('/opt/airflow/temp/af').load_tables
+    python_callable=laf.LoadAfricanFinancials('/opt/africa-securities/temp/af').load_tables
 )
 
 run_clean_african_financials = PythonOperator(
     task_id = 'run_clean_african_financials',
     dag=dag,
-    python_callable=caf.CleanAfricanFinancials('/opt/airflow/temp/af').delete_tables
+    python_callable=caf.CleanAfricanFinancials('/opt/africa-securities/temp/af').delete_tables
 )
 
 run_fetch_jse = PythonOperator(
