@@ -33,7 +33,7 @@ class FetchJSE:
 
         # if bool(os.getenv('IN_PRODUCTION')):
         if True:
-            driver = webdriver.Remote(command_executor=f'localhost:4444/wd/hub', options=options)
+            driver = webdriver.Remote(command_executor=f'http://localhost:4444/wd/hub', options=options)
         else:
             driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         driver.get(self.website)
