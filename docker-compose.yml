@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+    selenium:
+        container_name: remote_chromedriver
+        image: seleniarm/standalone-chromium:latest
+        environment:
+          - START_XVFB=false
+          - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+          - SE_NODE_MAX_SESSIONS=10
+          - JAVA_OPTS=-XX:ActiveProcessorCount=10
+        ports:
+          - "4444:4444"
+        restart: always
+        volumes:
+         - ./dev/shm:/dev/shm
+        shm_size: '6gb'
