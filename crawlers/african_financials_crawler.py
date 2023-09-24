@@ -61,10 +61,6 @@ class AfricanFinancialCrawler:
         securities_df['country'] = self.country
         securities_df['exchange'] = self.exchange
         securities_df['fetched_at_utc'] = datetime.utcnow()
-        outdir = './temp/af'
-        if not os.path.exists(outdir):
-            os.mkdir('./temp')
-            os.mkdir(outdir)
         securities_df.to_csv(f'temp/af/{self.exchange}_{datetime.now()}.csv', index=False)
 
         driver.quit()
