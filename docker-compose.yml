@@ -9,7 +9,6 @@ services:
           - SE_NODE_OVERRIDE_MAX_SESSIONS=true
           - SE_NODE_MAX_SESSIONS=10
           - JAVA_OPTS=-XX:ActiveProcessorCount=10
-          - SE_NODE_SESSION_TIMEOUT=5400
         ports:
           - "4444:4444"
         restart: always
