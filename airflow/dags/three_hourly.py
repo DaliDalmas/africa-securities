@@ -4,6 +4,7 @@ from airflow.operators.python import PythonOperator
 from fetch import fetch_african_financials as faf
 from fetch.fetch_jse import FetchJSE
 from load import load_african_financials as laf
+from load import load_jse as ljse
 from clean_up import clean_african_financials as caf
 
 
@@ -85,19 +86,31 @@ run_zimbabwe_stock_exchange = PythonOperator(
 run_load_african_financials = PythonOperator(
     task_id = 'run_load_african_financials',
     dag=dag,
-    python_callable=laf.LoadAfricanFinancials('/opt/africa-securities/temp/af').load_tables
+    python_callable=laf.LoadAfricanFinancials('temp/af').load_tables
 )
 
 run_clean_african_financials = PythonOperator(
     task_id = 'run_clean_african_financials',
     dag=dag,
-    python_callable=caf.CleanAfricanFinancials('/opt/africa-securities/temp/af').delete_tables
+    python_callable=caf.CleanAfricanFinancials('temp/af').delete_tables
+)
+
+run_load_jse = PythonOperator(
+    task_id = 'run_load_jse',
+    dag=dag,
+    python_callable=ljse.LoadJSE('temp/jse').load_tables
 )
 
 run_fetch_jse = PythonOperator(
     task_id = 'run_fetch_jse',
     dag=dag,
     python_callable=FetchJSE('https://www.jse.co.za/indices').run_crawler
+)
+
+run_clean_jse = PythonOperator(
+    task_id = 'run_clean_jse',
+    dag=dag,
+    python_callable=caf.CleanAfricanFinancials('temp/jse').delete_tables
 )
 
 run_load_african_financials.set_upstream(
@@ -117,3 +130,5 @@ run_load_african_financials.set_upstream(
         )
 
 run_clean_african_financials.set_upstream(run_load_african_financials)
+run_load_jse.set_upstream(run_fetch_jse)
+run_clean_jse.set_upstream(run_load_jse)

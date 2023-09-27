@@ -24,7 +24,7 @@ class Load:
         self.db_port = db_port
         self.db = db
         self.floating_columns = floating_columns
-    
+
     def load(self) -> None:
         db_link = f'postgresql://{self.db_user}:{self.db_user_pass}@{self.db_host}:{self.db_port}/{self.db}'
         print(db_link)

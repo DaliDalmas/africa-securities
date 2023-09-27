@@ -14,3 +14,18 @@ securities_data_types = {
 }
 
 securities_floating_columns = ['PRICE', 'CHANGE', 'VALUE', 'VOLUME', 'YTD']
+
+jse_data_types = {
+    "symbol":String(),
+    "name":String(),
+    "value":FLOAT(),
+    "change":FLOAT(),
+    "volume":FLOAT(),
+    "high":FLOAT(),
+    "low":FLOAT(),
+    "country":String(),
+    "exchange":String(),
+    "fetched_at_utc":DateTime()
+}
+
+jse_floating_columns = ["value", "change", "volume", "high", "low"]
