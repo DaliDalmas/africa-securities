@@ -29,3 +29,19 @@ jse_data_types = {
 }
 
 jse_floating_columns = ["value", "change", "volume", "high", "low"]
+
+rse_data_types = {
+    'company':String(),
+    'sector':String(),
+    'price':FLOAT(),
+    '1d':String(),
+    'ytd':String(),
+    'date':String(),
+    'country':String(),
+    'exchange':String(),
+    'fetched_at_utc':String()
+}
+
+rse_floating_columns = [
+    "price"
+]
