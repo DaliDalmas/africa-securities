@@ -153,8 +153,6 @@ run_clean_algeria_stocks = PythonOperator(
     python_callable=caf.CleanAfricanFinancials('temp/algeria').delete_tables
 )
 
-run_fetch_algeria_stocks.set_downstream(run_load_algeria_stock_exchange)
-run_load_algeria_stock_exchange.set_downstream(run_clean_algeria_stocks)
 
 run_load_african_financials.set_upstream(
     [
@@ -181,3 +179,5 @@ run_clean_jse.set_upstream(run_load_jse)
 run_load_rse.set_upstream(run_fetch_rse)
 run_clean_rse.set_upstream(run_load_rse)
 
+run_fetch_algeria_stocks.set_downstream(run_load_algeria_stock_exchange)
+run_load_algeria_stock_exchange.set_downstream(run_clean_algeria_stocks)
