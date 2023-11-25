@@ -45,3 +45,22 @@ rse_data_types = {
 rse_floating_columns = [
     "price"
 ]
+
+algeria_stocks_data_types = {
+    'company_name': String(),
+    'code': String(),
+    'opening': String(),
+    'closing': String(),
+    'change_%': String(),
+    'monthly_%_change': String(),
+    'annual_%_change': String(),
+    'p_e': String(),
+    'dividend_yield': String(),
+    'traded_volume': String(),
+    'traded_value_da': String(),
+    'country': String(),
+    'exchange': String(),
+    'fetched_at_utc': String()
+}
+
+algeria_stocks_floating_columns = []
