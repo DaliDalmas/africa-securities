@@ -135,14 +135,14 @@ run_clean_rse = PythonOperator(
     python_callable=caf.CleanAfricanFinancials('temp/rse').delete_tables
 )
 
-run_load_rse = PythonOperator(
+run_load_algeria_stock_exchange = PythonOperator(
     task_id = 'run_load_algeria_stock_exchange',
     dag=dag,
     python_callable=lase.LoadAlgeriaStockExchange('temp/algeria').load_tables
 )
 
-run_fetch_rse = PythonOperator(
-    task_id = 'run_fetch_rse',
+run_fetch_algeria_stocks = PythonOperator(
+    task_id = 'run_fetch_algeria_stocks',
     dag=dag,
     python_callable=FetchAlgeriaStocks('https://www.sgbv.dz/?page=detail_creance&lang=eng').run_crawler
 )
@@ -153,6 +153,8 @@ run_clean_algeria_stocks = PythonOperator(
     python_callable=caf.CleanAfricanFinancials('temp/algeria').delete_tables
 )
 
+run_fetch_algeria_stocks.set_downstream(run_load_algeria_stock_exchange)
+run_load_algeria_stock_exchange.set_downstream(run_clean_algeria_stocks)
 
 run_load_african_financials.set_upstream(
     [
@@ -179,5 +181,3 @@ run_clean_jse.set_upstream(run_load_jse)
 run_load_rse.set_upstream(run_fetch_rse)
 run_clean_rse.set_upstream(run_load_rse)
 
-run_fetch_rse.set_downstream(run_load_rse)
-run_load_rse.set_downstream(run_clean_algeria_stocks)
