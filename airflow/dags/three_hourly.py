@@ -159,7 +159,7 @@ run_clean_algeria_stocks = PythonOperator(
 run_load_cape_verde_stock_exchange = PythonOperator(
     task_id = 'run_load_cape_verde_stock_exchange',
     dag=dag,
-    python_callable=lcvs.LoadAlgeriaStockExchange('temp/cape_verde').load_tables
+    python_callable=lcvs.LoadCapeVerdeStocks('temp/cape_verde').load_tables
 )
 
 run_fetch_cape_verde_stocks = PythonOperator(
