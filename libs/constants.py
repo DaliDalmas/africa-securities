@@ -64,3 +64,15 @@ algeria_stocks_data_types = {
 }
 
 algeria_stocks_floating_columns = []
+
+cape_verde_stocks_data_types = {
+    'title': String(),
+    'date': String(),
+    'price': String(),
+    'percentage_change': String(),
+    'country': String(),
+    'exchange': String(),
+    'fetched_at_utc': DateTime()
+}
+
+cape_verde_stocks_floating_columns = []

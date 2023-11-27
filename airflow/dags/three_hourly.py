@@ -154,6 +154,25 @@ run_clean_algeria_stocks = PythonOperator(
 )
 
 
+run_load_cape_verde_stock_exchange = PythonOperator(
+    task_id = 'run_load_cape_verde_stock_exchange',
+    dag=dag,
+    python_callable=lase.LoadAlgeriaStockExchange('temp/cape_verde').load_tables
+)
+
+run_fetch_cape_verde_stocks = PythonOperator(
+    task_id = 'run_fetch_cape_verde_stocks',
+    dag=dag,
+    python_callable=FetchAlgeriaStocks('https://bvc.cv').run_crawler
+)
+
+run_clean_cape_verde_stocks = PythonOperator(
+    task_id = 'run_clean_cape_verde_stocks',
+    dag=dag,
+    python_callable=caf.CleanAfricanFinancials('temp/cape_verde').delete_tables
+)
+
+
 run_load_african_financials.set_upstream(
     [
         run_zimbabwe_stock_exchange,
@@ -181,3 +200,6 @@ run_clean_rse.set_upstream(run_load_rse)
 
 run_fetch_algeria_stocks.set_downstream(run_load_algeria_stock_exchange)
 run_load_algeria_stock_exchange.set_downstream(run_clean_algeria_stocks)
+
+run_fetch_cape_verde_stocks.set_downstream(run_load_cape_verde_stock_exchange)
+run_load_cape_verde_stock_exchange.set_downstream(run_clean_cape_verde_stocks)
