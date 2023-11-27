@@ -5,12 +5,14 @@ from fetch import fetch_african_financials as faf
 from fetch.fetch_jse import FetchJSE
 from fetch.fetch_rwanda_securities import FetchRandaSecurities
 from fetch.fetch_algeria_stocks import FetchAlgeriaStocks
+from fetch.fetch_cape_verde_stocks import FetchCapeVerderStocks
 from load import load_african_financials as laf
 from load import load_jse as ljse
 from clean_up import clean_african_financials as caf
 
 from load import load_rwanda_stock_exchange as lrse
 from load import load_algeria_stocks as lase
+from load import load_cape_verde_stocks as lcvs
 
 dag = DAG(
     dag_id='run_three_hourly_dag',
@@ -157,13 +159,13 @@ run_clean_algeria_stocks = PythonOperator(
 run_load_cape_verde_stock_exchange = PythonOperator(
     task_id = 'run_load_cape_verde_stock_exchange',
     dag=dag,
-    python_callable=lase.LoadAlgeriaStockExchange('temp/cape_verde').load_tables
+    python_callable=lcvs.LoadAlgeriaStockExchange('temp/cape_verde').load_tables
 )
 
 run_fetch_cape_verde_stocks = PythonOperator(
     task_id = 'run_fetch_cape_verde_stocks',
     dag=dag,
-    python_callable=FetchAlgeriaStocks('https://bvc.cv').run_crawler
+    python_callable=FetchCapeVerderStocks('https://bvc.cv').run_crawler
 )
 
 run_clean_cape_verde_stocks = PythonOperator(
